@@ -1,0 +1,93 @@
+<style>
+    #container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      border: 1px solid black;
+    }
+  
+    #square {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: blue;
+    }
+  
+    #checkpoint {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border: 2px solid red;
+    }
+  </style>
+  <button onclick="startGame()">Start</button>
+  <button onclick="resetGame()">Reset</button>
+  <div id="container">
+    <div id="square"></div>
+    <div id="checkpoint"></div>
+  </div>
+  
+  <script>
+    var acceleration = 0.5; // Customize the acceleration value here
+    var deceleration = 0.2; // Customize the deceleration value here
+    var velocity = 0;
+    var position = 0;
+    var timestep = 10; // Milliseconds
+    var targetPosition = 200; // Customize the target position here
+  
+    var interval; // Declare the interval variable outside of the functions
+  
+    var initialPosition; // Store the initial position of the square
+  
+    function startGame() {
+      // Move the square towards the target checkpoint
+      var square = document.getElementById("square");
+      var checkpoint = document.getElementById("checkpoint");
+  
+      // Set the checkpoint position and size
+      checkpoint.style.left = targetPosition + "px";
+      checkpoint.style.width = square.offsetWidth + "px";
+      checkpoint.style.height = square.offsetHeight + "px";
+  
+      initialPosition = position; // Store the initial position of the square
+  
+      interval = setInterval(function() {
+        var displacement = targetPosition - position;
+        var direction = displacement > 0 ? 1 : -1;
+  
+        // Calculate acceleration based on position
+        var currentAcceleration = acceleration;
+        if (Math.abs(displacement) < Math.abs(velocity) * velocity / (2 * deceleration)) {
+          currentAcceleration = -deceleration * direction;
+        }
+  
+        // Update velocity and position
+        velocity += currentAcceleration;
+        position += velocity;
+  
+        // Update the square's position
+        square.style.left = position + "px";
+  
+        // Check if the square reaches the target checkpoint
+        if ((direction === 1 && position >= targetPosition) || (direction === -1 && position <= targetPosition)) {
+          clearInterval(interval);
+          square.style.backgroundColor = "green";
+          checkpoint.style.borderColor = "green";
+        }
+      }, timestep);
+    }
+  
+    function resetGame() {
+      var square = document.getElementById("square");
+      var checkpoint = document.getElementById("checkpoint");
+  
+      clearInterval(interval); // Clear the game interval if it is active
+  
+      // Reset positions and styles
+      position = initialPosition;
+      velocity = 0;
+      square.style.left = position + "px";
+      square.style.backgroundColor = "blue";
+      checkpoint.style.borderColor = "red";
+    }
+  </script>

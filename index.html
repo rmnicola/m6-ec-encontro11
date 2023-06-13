@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -16,8 +16,21 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Welcome to My Presentation</h1>
+					<p>This is the first slide of the presentation.</p>
+				  </section>
+				  <section data-markdown>
+					<textarea data-template>
+					  ## Slide 2
+			
+					  This is a slide created using Markdown.
+					</textarea>
+				  </section>
+				  <section>
+					<h2>Game Slide</h2>
+					<iframe src="game.html" width="800" height="600" frameborder="0"></iframe>
+				  </section>
 			</div>
 		</div>
 
@@ -34,6 +47,17 @@
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+			document.addEventListener("DOMContentLoaded", function() {
+			  var gameSection = document.getElementById("game-section");
+			  var xhr = new XMLHttpRequest();
+			  xhr.onreadystatechange = function() {
+				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+				  gameSection.innerHTML = xhr.responseText;
+				}
+			  };
+			  xhr.open("GET", "game.html", true);
+			  xhr.send();
 			});
 		</script>
 	</body>
