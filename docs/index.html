@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/white.css">
+		<link rel="stylesheet" href="game/game.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -28,8 +29,9 @@
 					</textarea>
 				  </section>
 				  <section>
-					<h2>Game Slide</h2>
-					<iframe src="game.html" width="800" height="600" frameborder="0"></iframe>
+				  <canvas id="canvas1">
+				  </canvas>
+				  <script type="module" src="game/game.js"></script>
 				  </section>
 			</div>
 		</div>
@@ -47,17 +49,6 @@
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-			document.addEventListener("DOMContentLoaded", function() {
-			  var gameSection = document.getElementById("game-section");
-			  var xhr = new XMLHttpRequest();
-			  xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-				  gameSection.innerHTML = xhr.responseText;
-				}
-			  };
-			  xhr.open("GET", "game.html", true);
-			  xhr.send();
 			});
 		</script>
 	</body>
