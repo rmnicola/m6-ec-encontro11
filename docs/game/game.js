@@ -12,7 +12,9 @@ export class Game {
         this.animate();
     }
     restart(){
-        this.player = new Player(this, this.width/20, this.height*4/5, 0.1, this.controller_type)
+        this.player.x = this.width/20;
+        this.player.target_vel = 0.0;
+        this.player.actual_vel = 0.0;
         this.goal = this.player.x;
     }
     update(){

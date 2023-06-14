@@ -31,6 +31,7 @@ export class PIDController extends Controller{
         this.i = 0.0;
         this.d = 0.0;
         this.diffI = 0.0;
+        this.counter = 0;
     }
     control(){
         const diff = this.player.position_error[0] = this.player.game.goal - this.player.x;
