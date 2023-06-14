@@ -18,8 +18,8 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1>Welcome to My Presentation</h1>
-					<p>This is the first slide of the presentation.</p>
+					<h1>Controlador PID</h1>
+					<p>Estudo de caso de controlador PID</p>
 				  </section>
 				  <section data-markdown>
 					<textarea data-template>
@@ -28,11 +28,71 @@
 					  This is a slide created using Markdown.
 					</textarea>
 				  </section>
-				  <section>
-				  <canvas id="canvas1">
-				  </canvas>
-				  <script type="module" src="game/game.js"></script>
+
+				  <section> 
+					<h3>Controlador Simples</h3>
+				    <button id="start1">Start</button>
+					<button id="reset1">Reset</button>
+					<input type="range" id="vel1" min="0" max="20" value="4" step="0.1">
+					<canvas id="canvas_cs"></canvas>
+					<script type="module">
+					  import {Game} from './game/game.js'
+					  const game = new Game('canvas_cs', "simple");
+					  document.getElementById("start1").addEventListener("click", function() {game.goal=game.width*2/3;});
+					  document.getElementById("reset1").addEventListener("click", function() {game.restart();});
+					  document.getElementById("vel1").addEventListener("input", function() {game.player.max_vel=vel1.value;});
+					</script>
 				  </section>
+
+  				  <section> 
+					<h3>P</h3>
+				    <button id="start2">Start</button>
+					<button id="reset2">Reset</button>
+					<input type="range" id="p" min="0" max="100" value="20" step="1">
+					<canvas id="canvas_p"></canvas>
+					<script type="module">
+					  import {Game} from './game/game.js'
+					  const game2 = new Game('canvas_p', "pid");
+					  document.getElementById("start2").addEventListener("click", function() {game2.goal=game2.width*2/3;});
+					  document.getElementById("reset2").addEventListener("click", function() {game2.restart();});
+					  document.getElementById("p").addEventListener("input", function() {game2.player.controller.p=p.value/200;});
+					</script>
+				  </section>
+
+				  <section>
+					<h3>PI</h3>
+				    <button id="start3">Start</button>
+					<button id="reset3">Reset</button>
+					<input type="range" id="p2" min="0" max="100" value="20" step="1">
+					<input type="range" id="i" min="0" max="100" value="0" step="1">
+					<canvas id="canvas_pi"></canvas>
+					<script type="module">
+					  import {Game} from './game/game.js'
+					  const game3 = new Game('canvas_pi', "pid");
+					  document.getElementById("start3").addEventListener("click", function() {game3.goal=game3.width*2/3;});
+					  document.getElementById("reset3").addEventListener("click", function() {game3.restart();});
+					  document.getElementById("p2").addEventListener("input", function() {game3.player.controller.p=p2.value/400;});
+					  document.getElementById("i").addEventListener("input", function() {game3.player.controller.i=i.value/2000;});
+					</script>
+				  </section>
+
+				  <section>
+					<h3>PD</h3>
+				    <button id="start4">Start</button>
+					<button id="reset4">Reset</button>
+					<input type="range" id="p3" min="0" max="100" value="20" step="1">
+					<input type="range" id="d" min="0" max="100" value="0" step="1">
+					<canvas id="canvas_pd"></canvas>
+					<script type="module">
+					  import {Game} from './game/game.js'
+					  const game4 = new Game('canvas_pd', "pid");
+					  document.getElementById("start4").addEventListener("click", function() {game4.goal=game4.width *2/3;});
+					  document.getElementById("reset4").addEventListener("click", function() {game4.restart();});
+					  document.getElementById("p3").addEventListener("input", function() {game4.player.controller.p=p3.value/400;});
+					  document.getElementById("d").addEventListener("input", function() {game4.player.controller.d=d.value/2000;});
+					</script>
+				  </section>
+
 			</div>
 		</div>
 
